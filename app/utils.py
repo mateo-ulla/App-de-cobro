@@ -14,11 +14,12 @@ def create_mp_preference(order, items):
         "items": preference_items,
         "external_reference": str(order.id),
         "back_urls": {
-            "success": "http://localhost:5000/checkout/success",
-            "failure": "http://localhost:5000/checkout/failure",
-            "pending": "http://localhost:5000/checkout/pending"
+            "success": "https://127.0.0.1:5000/checkout/success",
+            "failure": "https://127.0.0.1:5000/checkout/failure",
+            "pending": "https://127.0.0.1:5000/checkout/pending"
         },
         "auto_return": "approved"
     }
+    print("[MP preference_data]", preference_data)
     preference_response = sdk.preference().create(preference_data)
     return preference_response

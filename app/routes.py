@@ -159,7 +159,12 @@ def checkout():
         if metodo == "mercadopago":
             # crear preference y redirigir al checkout de Mercado Pago
             preference = create_mp_preference(order, order.items)
-            init_point = preference["response"].get("init_point")
+            init_point = None
+            if preference and "response" in preference:
+                init_point = preference["response"].get("init_point")
+            if not init_point:
+                flash("Error al generar el enlace de pago de Mercado Pago. Detalle: {}".format(preference), "danger")
+                return redirect(url_for("main.checkout"))
             # guardar payment provisional
             pay = Payment(order_id=order.id, metodo="mercadopago", status="created")
             db.session.add(pay)

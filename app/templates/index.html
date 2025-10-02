@@ -1,0 +1,29 @@
+{% extends "base.html" %} {% block title %}Inicio - App de Cobro{% endblock %}
+{% block content %}
+<h1>Tienda de ejemplo</h1>
+<div class="row">
+  {% for p in productos %}
+  <div class="col-md-4">
+    <div class="card mb-3">
+      <div class="card-body">
+        <h5 class="card-title">{{ p.nombre }}</h5>
+        <p class="card-text">{{ p.descripcion|truncate(100) }}</p>
+        <p><strong>Precio:</strong> ${{ "%.2f"|format(p.precio) }}</p>
+        <a
+          href="{{ url_for('main.cart_add', pid=p.id) }}"
+          class="btn btn-success btn-sm"
+          >Agregar</a
+        >
+        {% if current_user.is_authenticated %}
+        <a
+          href="{{ url_for('main.product_edit', pid=p.id) }}"
+          class="btn btn-secondary btn-sm"
+          >Editar</a
+        >
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

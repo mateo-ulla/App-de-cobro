@@ -1,0 +1,18 @@
+{% extends "base.html" %} {% block content %}
+<h2>Checkout</h2>
+<p>Monto total: <strong>${{ "%.2f"|format(order.total) }}</strong></p>
+
+<form method="post">
+  {{ form.hidden_tag() }}
+  <div class="mb-3">
+    {{ form.metodo.label }} {{ form.metodo(class="form-select") }}
+  </div>
+  {{ form.submit(class="btn btn-primary") }}
+</form>
+
+<p class="mt-3 text-muted">
+  Nota: El método "Mercado Pago" abre la pasarela real. El método "Tarjeta" es
+  una simulación para el trabajo práctico (marca el pedido como pagado
+  automáticamente).
+</p>
+{% endblock %}

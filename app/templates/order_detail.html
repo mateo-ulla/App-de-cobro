@@ -1,0 +1,28 @@
+{% extends "base.html" %} {% block content %}
+<h2>Detalle del pedido #{{ order.id }}</h2>
+<p>Estado: <strong>{{ order.estado }}</strong></p>
+<p>Fecha: {{ order.fecha }}</p>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Producto</th>
+      <th>Cantidad</th>
+      <th>Precio unitario</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for it in order.items %}
+    <tr>
+      <td>{{ it.producto.nombre }}</td>
+      <td>{{ it.cantidad }}</td>
+      <td>${{ "%.2f"|format(it.precio_unit) }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<p><strong>Total:</strong> ${{ "%.2f"|format(order.total) }}</p>
+{% if order.payment %}
+<p>
+  Método: {{ order.payment.metodo }} - Estado pago: {{ order.payment.status }}
+</p>
+{% endif %} {% endblock %}
